@@ -1,0 +1,11 @@
+---
+sites_enabled_dest: "/etc/nginx/sites-enabled/"
+sites_src: "/etc/nginx/sites-available/"
+domain: dev1.avg.srwx.net
+worker_connection: 768
+keepalive_timeout: 6
+tcp_nodelay_state: "on"
+tcp_nopush_state: "on"
+sendfile_state: "on"
+max_connections: 1024
+worker_processes_var: auto

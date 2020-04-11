@@ -1,0 +1,13 @@
+---
+- name: uploading all configs
+  template: "{{ item }}"
+  loop:
+    - { src: 'nginx.conf', dest: '/etc/nginx/nginx.conf'} 
+    - { src: 'virtualhosts-enabled.conf', dest: '{{ sites_src }}default' }
+- name : creating symlinks
+  file:
+    src: "{{ sites_src }}default" 
+    dest: "{{sites_enabled_dest}}default" 
+    state: link
+  notify:
+    - restart nginx

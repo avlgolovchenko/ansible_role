@@ -1,0 +1,30 @@
+--- 
+- name: sendfile for virt host
+  lineinfile: 
+    path: "{{ sites_src }}default"
+    regexp: '^try_files'
+    insertbefore: "try_files"
+    line: "\t\tsendfile {{ sendfile_state }};"
+- name: tcp_nopush_state for nginx config
+  lineinfile: 
+    path: "/etc/nginx/nginx.conf"
+    regexp: "^\ttcp_nopush"
+    line: "\ttcp_nopush {{ tcp_nopush_state }};"
+- name: tcp_nodelay_state for nginx config
+  lineinfile: 
+    path: "/etc/nginx/nginx.conf"
+    regexp: "^\ttcp_nodelay"
+    line: "\ttcp_nodelay {{ tcp_nodelay_state }};"
+- name: max conncetions for default config
+  lineinfile: 
+    path: "/etc/nginx/nginx.conf"
+    regexp: "^\tworker_connections"
+    line: "\tworker_connections {{ max_connections }};"
+- name: worker connections for default config
+  lineinfile: 
+    path: "/etc/nginx/nginx.conf"
+    regexp: "^worker_processes"
+    line: "worker_processes {{ worker_processes_var }}"
+        
+  notify:
+    - restart nginx

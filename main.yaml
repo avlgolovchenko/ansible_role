@@ -1,0 +1,5 @@
+---
+- hosts: rebrain
+  become: yes
+  roles:
+    - config
